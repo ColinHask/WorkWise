@@ -89,8 +89,8 @@ public class AccountHandler {
         // File myObj = new File("filename.txt"); // Specify the filename
         try {
             FileWriter myWriter = new FileWriter("C:\\Users\\Colin\\IdeaProjects\\WorkWise\\src\\Users.txt");
-            myWriter.write("#u#" + user + "\n");
-            myWriter.write("#p#" + pass + "\n");
+            myWriter.append("#u#" + user + "\n");
+            myWriter.append("#p#" + pass + "\n");
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
