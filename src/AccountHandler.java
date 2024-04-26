@@ -86,9 +86,8 @@ public class AccountHandler {
 
     // stores username and password in text file,  find better way to do this using database later
     public void storeUser(String user, String pass) {
-        // File myObj = new File("filename.txt"); // Specify the filename
         try {
-            FileWriter myWriter = new FileWriter("C:\\Users\\Colin\\IdeaProjects\\WorkWise\\src\\Users.txt");
+            FileWriter myWriter = new FileWriter("C:\\Users\\Colin\\IdeaProjects\\WorkWise\\src\\Users.txt", true); // true for appending
             myWriter.append("#u#" + user + "\n");
             myWriter.append("#p#" + pass + "\n");
             myWriter.close();
@@ -99,14 +98,24 @@ public class AccountHandler {
         }
     }
     // imports users and passwords from file (use when app is opened)
-    // unfinished
+
     public void importUsers(){
         try {
             File myObj = new File("C:\\Users\\Colin\\IdeaProjects\\WorkWise\\src\\Users.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                System.out.println(data);
+
+                if(data.startsWith("#u#")){
+
+                    usernameList.add(data.substring(3));
+
+                } else if (data.startsWith("#p#")) {
+
+                    passwordList.add(data.substring(3));
+
+                }
+
             }
             myReader.close();
         } catch (FileNotFoundException e) {
