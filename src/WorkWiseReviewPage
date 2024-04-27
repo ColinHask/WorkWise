@@ -2,8 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WorkWiseReviewPage extends JFrame {
+
+    private Map<String, String> userReviews = new HashMap<>();
 
     public WorkWiseReviewPage() {
         setTitle("WorkWise Review Page");
@@ -49,16 +53,16 @@ public class WorkWiseReviewPage extends JFrame {
 
     private void collectUserReview() {
         JPanel reviewPanel = new JPanel();
-        reviewPanel.setLayout(new GridLayout(3, 1));
+        reviewPanel.setLayout(new GridLayout(5, 1));
 
-        JLabel userReviewLabel = new JLabel("Please type your review of WorkWise:");
+        JLabel userReviewLabel = new JLabel("Please type your review of 'Company Name':");
         JTextArea userReviewTextArea = new JTextArea(5, 20);
         JScrollPane reviewScrollPane = new JScrollPane(userReviewTextArea);
 
         reviewPanel.add(userReviewLabel);
         reviewPanel.add(reviewScrollPane);
 
-        JLabel ratingLabel = new JLabel("Please rate WorkWise out of 5 stars:");
+        JLabel ratingLabel = new JLabel("Please rate 'Company Name' out of 5 stars:");
         JPanel ratingPanel = new JPanel();
 
         ButtonGroup starsGroup = new ButtonGroup();
@@ -66,23 +70,61 @@ public class WorkWiseReviewPage extends JFrame {
         ActionListener ratingListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Thank you for your review!\n\nYour review: " +
-                        userReviewTextArea.getText() + "\nYour rating: " + e.getActionCommand());
+                // This listener only updates the rating when a star is selected
+                // No submission logic here
             }
         };
 
         for (int i = 1; i <= 5; i++) {
             JRadioButton starButton = new JRadioButton(String.valueOf(i));
-            starButton.setActionCommand(getStars(i));
+            starButton.setActionCommand(String.valueOf(i));
             starButton.addActionListener(ratingListener);
             starsGroup.add(starButton);
             ratingPanel.add(starButton);
         }
 
+        JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // This listener handles the submission when the submit button is clicked
+                String review = userReviewTextArea.getText();
+                String selectedRating = starsGroup.getSelection().getActionCommand();
+
+                if (!review.isEmpty() && selectedRating != null) {
+                    if (!userReviews.containsKey("Your Review")) {
+                        userReviews.put("Your Review", review + " - " + getStars(Integer.parseInt(selectedRating)));
+                        updateReviewsPanel();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "You have already submitted a review.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please enter your review and rate 'Company Name' before submitting.");
+                }
+            }
+        });
+
         reviewPanel.add(ratingLabel);
         reviewPanel.add(ratingPanel);
+        reviewPanel.add(submitButton);
 
         add(reviewPanel, BorderLayout.SOUTH);
+    }
+
+
+
+    private void updateReviewsPanel() {
+        JPanel reviewsPanel = (JPanel) getContentPane().getComponent(1);
+        JLabel yourReviewsLabel = new JLabel("Your Reviews:");
+        reviewsPanel.add(yourReviewsLabel);
+        for (Map.Entry<String, String> entry : userReviews.entrySet()) {
+            JLabel reviewLabel = new JLabel(entry.getKey() + " - " + entry.getValue());
+            reviewsPanel.add(reviewLabel);
+        }
+        getContentPane().remove(1);
+        getContentPane().add(reviewsPanel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 
     private String getStars(int rating) {
