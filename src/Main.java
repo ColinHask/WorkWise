@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
 import java.util.Scanner;
 import javax.swing.*;
 
@@ -67,6 +69,39 @@ public class Main {
         login.add(passwordLabel); login.add(password);
         login.setVisible(true);
 
+        Scanner sc = new Scanner(System.in);
+        AccountHandler acc = new AccountHandler();
+
+
+        System.out.println("\n\nthis is a test of the systems and this is not real user data");
+        System.out.println("current data:");
+      acc.importUsers();
+      acc.dangerMethod();
+
+        // this is setup to test creating acc and logging in
+        // create user (createAccount)
+        // then log in attempt (LoginAttempt)
+        // then display all stored usernames and pass (dangerMethod)
+        for (int i = 0; i < 5; i++) {
+            System.out.println("\n\nCreate Account");
+            acc.createAccount();
+
+
+            System.out.println("\n\n\nlogin:");
+            System.out.println("enter username: ");
+            String user = sc.nextLine();
+            System.out.println("enter password: ");
+            String pass = sc.nextLine();
+            if (acc.loginAttempt(user, pass)) {
+                System.out.println("Sucessfull Login");
+            } else {
+                System.out.println("Login Failed");
+            }
+
+        acc.dangerMethod();
+
+        }
+
         //homepage
         //after logged in, bring user to homepage 
         //maybe add home, reviews, about us, and contact buttons and pages??
@@ -83,6 +118,7 @@ public class Main {
         JLabel jobImageLabel = new JLabel();
         ImageIcon jobImage = new ImageIcon("src/Images/WorkwiseJobImage.jpeg");
         jobImageLabel.setBounds(150,300,200,200);
+        jobImage.getImage().getScaledInstance(200, 200, 0);
         jobImageLabel.setIcon(jobImage);
 
         homepage.add(workwise);
@@ -90,36 +126,15 @@ public class Main {
         homepage.add(jobImageLabel);
         homepage.setVisible(true);
 
-
-
-
-
-
-        Scanner sc = new Scanner(System.in);
-        AccountHandler acc = new AccountHandler();
-
-        // this is setup to test creating acc and logging in
-        // create user, then log in attempt, then display all stored usernames and pass
-        for (int i = 0; i < 5; i++) {
-            System.out.println("\n\ncreate account");
-            acc.createAccount();
-
-
-            System.out.println("\n\n\nlogin:");
-            System.out.println("enter username: ");
-            String user = sc.nextLine();
-            System.out.println("enter password: ");
-            String pass = sc.nextLine();
-            if (acc.loginAttempt(user, pass)) {
-                System.out.println("sucess :D");
-            } else {
-                System.out.println(" bad :(");
+        searchBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                String searchInput = (String) searchBar.getSelectedItem();
+                if (searchInput == "Google") {
+                    //show google review page
+                }
+                //etc with rest of review pages 
             }
+        });
 
-        acc.dangerMethod();
-
-        }
-
-        
     }
 }
