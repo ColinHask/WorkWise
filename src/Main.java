@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 import java.util.Scanner;
@@ -69,38 +70,38 @@ public class Main {
         login.add(passwordLabel); login.add(password);
         login.setVisible(true);
 
-        Scanner sc = new Scanner(System.in);
-        AccountHandler acc = new AccountHandler();
+    //     Scanner sc = new Scanner(System.in);
+    //     AccountHandler acc = new AccountHandler();
 
 
-        System.out.println("\n\nthis is a test of the systems and this is not real user data");
-        System.out.println("current data:");
-      acc.importUsers();
-      acc.dangerMethod();
+    //     System.out.println("\n\nthis is a test of the systems and this is not real user data");
+    //     System.out.println("current data:");
+    //   acc.importUsers();
+    //   acc.dangerMethod();
 
-        // this is setup to test creating acc and logging in
-        // create user (createAccount)
-        // then log in attempt (LoginAttempt)
-        // then display all stored usernames and pass (dangerMethod)
-        for (int i = 0; i < 5; i++) {
-            System.out.println("\n\nCreate Account");
-            acc.createAccount();
+    //     // this is setup to test creating acc and logging in
+    //     //create user (createAccount)
+    //     //then log in attempt (LoginAttempt)
+    //     //then display all stored usernames and pass (dangerMethod)
+    //     for (int i = 0; i < 5; i++) {
+    //         System.out.println("\n\nCreate Account");
+    //         acc.createAccount();
 
 
-            System.out.println("\n\n\nlogin:");
-            System.out.println("enter username: ");
-            String user = sc.nextLine();
-            System.out.println("enter password: ");
-            String pass = sc.nextLine();
-            if (acc.loginAttempt(user, pass)) {
-                System.out.println("Sucessfull Login");
-            } else {
-                System.out.println("Login Failed");
-            }
+    //         System.out.println("\n\n\nlogin:");
+    //         System.out.println("enter username: ");
+    //         String user = sc.nextLine();
+    //         System.out.println("enter password: ");
+    //         String pass = sc.nextLine();
+    //         if (acc.loginAttempt(user, pass)) {
+    //             System.out.println("Sucessfull Login");
+    //         } else {
+    //             System.out.println("Login Failed");
+    //         }
 
-        acc.dangerMethod();
+    //     acc.dangerMethod();
 
-        }
+    //     }
 
         //homepage
         //after logged in, bring user to homepage 
@@ -108,6 +109,7 @@ public class Main {
         JFrame homepage = new JFrame("WebWise HomePage");
         homepage.setSize(750,500);
         homepage.setLayout(null);
+
         JLabel workwise = new JLabel("WORKWISE");
         workwise.setFont(new Font("Open Sans", Font.BOLD, 22));
         workwise.setForeground(Color.RED);
@@ -115,29 +117,44 @@ public class Main {
         String companies[] = {"Search","Google", "Amazon", "Meta"};
         JComboBox searchBar = new JComboBox<>(companies);
         searchBar.setBounds(200,100,300,30);
+
         JLabel jobImageLabel = new JLabel();
-        ImageIcon jobImage = new ImageIcon("src/Images/WorkwiseJobImage.jpeg");
-        jobImageLabel.setBounds(150,300,200,200);
-        jobImage.getImage().getScaledInstance(200, 200, 0);
-        jobImageLabel.setIcon(jobImage);
+        ImageIcon jobImageIcon = new ImageIcon("src/Images/WorkwiseJobImage.jpeg");
+        Image jobImage = jobImageIcon.getImage().getScaledInstance(275,250, Image.SCALE_SMOOTH);
+        jobImageLabel.setBounds(75,175,275,250);
+        jobImageIcon = new ImageIcon(jobImage);
+        jobImageLabel.setIcon(jobImageIcon);
+        JLabel jobImageCaption = new JLabel("Find the Best Fit Company for You");
+        jobImageCaption.setBounds(95,385,275,100);
+
+        JLabel jobMarketLabel = new JLabel();
+        ImageIcon jobMarketImageIcon = new ImageIcon("src/Images/jobMarketImage.jpeg");
+        Image jobMarketImage = jobMarketImageIcon.getImage().getScaledInstance(275, 250, Image.SCALE_SMOOTH);
+        jobMarketLabel.setBounds(385, 175, 275, 250);
+        jobMarketImageIcon = new ImageIcon(jobMarketImage);
+        jobMarketLabel.setIcon(jobMarketImageIcon);
+        JLabel jobMarketCaption = new JLabel("Maneuver the Job Market");
+        jobMarketCaption.setBounds(430,385,275,100);
 
         homepage.add(workwise);
         homepage.add(searchBar);
-        homepage.add(jobImageLabel);
+        homepage.add(jobImageLabel); homepage.add(jobMarketLabel);
+        homepage.add(jobImageCaption); homepage.add(jobMarketCaption);
         homepage.setVisible(true);
 
         searchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 String searchInput = (String) searchBar.getSelectedItem();
                 if (searchInput == "Google") {
-                    //show google review page
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            new WorkWiseReviewPage();
+                        }
+                    });
                 }
                 //etc with rest of review pages 
             }
         });
 
-
     }
-
-    
 }
