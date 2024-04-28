@@ -70,42 +70,41 @@ public class Main {
         login.add(passwordLabel); login.add(password);
         login.setVisible(true);
 
-    //     Scanner sc = new Scanner(System.in);
-    //     AccountHandler acc = new AccountHandler();
+        Scanner sc = new Scanner(System.in);
+        AccountHandler acc = new AccountHandler();
 
 
-    //     System.out.println("\n\nthis is a test of the systems and this is not real user data");
-    //     System.out.println("current data:");
-    //   acc.importUsers();
-    //   acc.dangerMethod();
+        System.out.println("\n\nthis is a test of the systems and this is not real user data");
+        System.out.println("current data:");
+      acc.importUsers();
+      acc.dangerMethod();
 
-    //     // this is setup to test creating acc and logging in
-    //     //create user (createAccount)
-    //     //then log in attempt (LoginAttempt)
-    //     //then display all stored usernames and pass (dangerMethod)
-    //     for (int i = 0; i < 5; i++) {
-    //         System.out.println("\n\nCreate Account");
-    //         acc.createAccount();
+        // this is setup to test creating acc and logging in
+        //create user (createAccount)
+        //then log in attempt (LoginAttempt)
+        //then display all stored usernames and pass (dangerMethod)
+        for (int i = 0; i < 5; i++) {
+            System.out.println("\n\nCreate Account");
+            acc.createAccount();
 
 
-    //         System.out.println("\n\n\nlogin:");
-    //         System.out.println("enter username: ");
-    //         String user = sc.nextLine();
-    //         System.out.println("enter password: ");
-    //         String pass = sc.nextLine();
-    //         if (acc.loginAttempt(user, pass)) {
-    //             System.out.println("Sucessfull Login");
-    //         } else {
-    //             System.out.println("Login Failed");
-    //         }
+            System.out.println("\n\n\nlogin:");
+            System.out.println("enter username: ");
+            String user = sc.nextLine();
+            System.out.println("enter password: ");
+            String pass = sc.nextLine();
+            if (acc.loginAttempt(user, pass)) {
+                System.out.println("Sucessfull Login");
+            } else {
+                System.out.println("Login Failed");
+            }
 
-    //     acc.dangerMethod();
+        acc.dangerMethod();
 
-    //     }
+        }
 
         //homepage
         //after logged in, bring user to homepage 
-        //maybe add home, reviews, about us, and contact buttons and pages??
         JFrame homepage = new JFrame("WebWise HomePage");
         homepage.setSize(750,500);
         homepage.setLayout(null);
@@ -142,17 +141,17 @@ public class Main {
         homepage.add(jobImageCaption); homepage.add(jobMarketCaption);
         homepage.setVisible(true);
 
+        //opens up review page if a company is selected 
         searchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 String searchInput = (String) searchBar.getSelectedItem();
-                if (searchInput == "Google") {
+                if (searchInput != "Search") {
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            new WorkWiseReviewPage();
+                            new WorkWiseReviewPage(searchInput);
                         }
                     });
                 }
-                //etc with rest of review pages 
             }
         });
 

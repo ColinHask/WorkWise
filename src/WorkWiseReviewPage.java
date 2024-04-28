@@ -9,23 +9,36 @@ public class WorkWiseReviewPage extends JFrame {
 
     private Map<String, String> userReviews = new HashMap<>();
 
-    public WorkWiseReviewPage() {
+    public WorkWiseReviewPage(String company) {
         setTitle("WorkWise Review Page");
-        setSize(400, 300);
+        setSize(900, 675);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        addHeader();
+        addHeader(company);
         addMockReviews();
-        collectUserReview();
+        collectUserReview(company);
 
         setVisible(true);
     }
 
-    private void addHeader() {
-        JPanel headerPanel = new JPanel();
+    private void addHeader(String company) {
+        JPanel headerPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10,10,10,10);
+
         JLabel headerLabel = new JLabel("WorkWise");
-        headerPanel.add(headerLabel);
+        headerLabel.setFont(new Font("Open Sans", Font.BOLD, 22));
+        headerLabel.setForeground(Color.RED);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        headerPanel.add(headerLabel, gbc);
+
+        JLabel companyName = new JLabel(company);
+        companyName.setFont(new Font("Open Sans", Font.BOLD, 14));
+        gbc.gridy = 1;
+        headerPanel.add(companyName, gbc);
+
         add(headerPanel, BorderLayout.NORTH);
     }
 
@@ -51,18 +64,18 @@ public class WorkWiseReviewPage extends JFrame {
         add(reviewsPanel, BorderLayout.CENTER);
     }
 
-    private void collectUserReview() {
+    private void collectUserReview(String company) {
         JPanel reviewPanel = new JPanel();
         reviewPanel.setLayout(new GridLayout(5, 1));
 
-        JLabel userReviewLabel = new JLabel("Please type your review of 'Company Name':");
+        JLabel userReviewLabel = new JLabel("Please type your review of " + company + ":");
         JTextArea userReviewTextArea = new JTextArea(5, 20);
         JScrollPane reviewScrollPane = new JScrollPane(userReviewTextArea);
 
         reviewPanel.add(userReviewLabel);
         reviewPanel.add(reviewScrollPane);
 
-        JLabel ratingLabel = new JLabel("Please rate 'Company Name' out of 5 stars:");
+        JLabel ratingLabel = new JLabel("Please rate " + company +  " out of 5 stars:");
         JPanel ratingPanel = new JPanel();
 
         ButtonGroup starsGroup = new ButtonGroup();
@@ -99,7 +112,7 @@ public class WorkWiseReviewPage extends JFrame {
                         JOptionPane.showMessageDialog(null, "You have already submitted a review.");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Please enter your review and rate 'Company Name' before submitting.");
+                    JOptionPane.showMessageDialog(null, "Please enter your review and rate " + company + " before submitting.");
                 }
             }
         });
@@ -141,7 +154,7 @@ public class WorkWiseReviewPage extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new WorkWiseReviewPage();
+                new WorkWiseReviewPage("Google");
             }
         });
     }
