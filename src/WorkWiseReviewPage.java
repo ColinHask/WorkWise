@@ -35,7 +35,7 @@ public class WorkWiseReviewPage extends JFrame {
         headerPanel.add(headerLabel, gbc);
 
         JLabel companyName = new JLabel(company);
-        companyName.setFont(new Font("Open Sans", Font.BOLD, 14));
+        companyName.setFont(new Font("Open Sans", Font.BOLD, 20));
         gbc.gridy = 1;
         headerPanel.add(companyName, gbc);
 
@@ -124,8 +124,6 @@ public class WorkWiseReviewPage extends JFrame {
         add(reviewPanel, BorderLayout.SOUTH);
     }
 
-
-
     private void updateReviewsPanel() {
         JPanel reviewsPanel = (JPanel) getContentPane().getComponent(1);
         JLabel yourReviewsLabel = new JLabel("Your Reviews:");
@@ -149,13 +147,5 @@ public class WorkWiseReviewPage extends JFrame {
             stars.append("☆");
         }
         return stars.toString();
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new WorkWiseReviewPage("Google");
-            }
-        });
     }
 }

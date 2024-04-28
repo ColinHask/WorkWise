@@ -148,7 +148,9 @@ public class Main {
                 if (searchInput != "Search") {
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            new WorkWiseReviewPage(searchInput);
+                            MockupReviewPage reviewView = new MockupReviewPage(searchInput);
+                            reviewView.setVisible(true);
+                            //new WorkWiseReviewPage(searchInput);
                         }
                     });
                 }
