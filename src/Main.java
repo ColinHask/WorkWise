@@ -2,9 +2,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 import javax.swing.*;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -48,11 +49,24 @@ public class Main {
         errorPassword.setBounds(50,300,300,30);
         errorPassword.setBackground(Color.red);
 
+        //create account button
+        JButton createUserAccount = new JButton("Create Account");
+        createUserAccount.setBounds(250,250,125,40);
+
+        //create account button action listener
+        //basically when it is clicked, it will run whatever code is in this function
+        createUserAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+
+            }
+        });
+
         //adds all fields created to the create account page/frame 
         create.add(createAccount); 
         create.add(userLabel); create.add(createUsername);
         create.add(passLabel); create.add(createPassword);
         create.add(verifyLabel); create.add(verify);
+        create.add(createUserAccount);
         //sets the create page to visible
         create.setVisible(true);
 
@@ -78,6 +92,19 @@ public class Main {
         JPasswordField password = new JPasswordField();
         password.setBounds(150,150,200,30);
 
+        //create account button
+        JButton userLogin = new JButton("Login");
+        userLogin.setBounds(275,200,75,40);
+
+        //userLogin button action listener
+        //whenever userLogin button is clicked, this function will run
+        //likely do if login is verified then login.add(success)
+        userLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                new Homepage();
+            }
+        });
+        //maybe put this section inside of the actionListener
         //show based on if login is verified login.add(success) or login.add(error)
         //success label message and placement 
         JLabel success = new JLabel("Success :D");
@@ -90,7 +117,10 @@ public class Main {
         login.add(loginLabel);
         login.add(usernameLabel); login.add(username);
         login.add(passwordLabel); login.add(password);
+        login.add(userLogin);
         login.setVisible(true);
+
+        
 
         Scanner sc = new Scanner(System.in);
         AccountHandler acc = new AccountHandler();
@@ -124,59 +154,6 @@ public class Main {
         acc.dangerMethod();
 
         }
-
-        //homepage
-        //after logged in, bring user to homepage 
-        JFrame homepage = new JFrame("WebWise HomePage");
-        homepage.setSize(750,500);
-        homepage.setLayout(null);
-
-        JLabel workwise = new JLabel("WORKWISE");
-        workwise.setFont(new Font("Open Sans", Font.BOLD, 22));
-        workwise.setForeground(Color.RED);
-        workwise.setBounds(300,50,300,30);
-        String companies[] = {"Search","Google", "Amazon", "Meta"};
-        JComboBox searchBar = new JComboBox<>(companies);
-        searchBar.setBounds(200,100,300,30);
-
-        JLabel jobImageLabel = new JLabel();
-        ImageIcon jobImageIcon = new ImageIcon("src/Images/WorkwiseJobImage.jpeg");
-        Image jobImage = jobImageIcon.getImage().getScaledInstance(275,250, Image.SCALE_SMOOTH);
-        jobImageLabel.setBounds(75,175,275,250);
-        jobImageIcon = new ImageIcon(jobImage);
-        jobImageLabel.setIcon(jobImageIcon);
-        JLabel jobImageCaption = new JLabel("Find the Best Fit Company for You");
-        jobImageCaption.setBounds(95,385,275,100);
-
-        JLabel jobMarketLabel = new JLabel();
-        ImageIcon jobMarketImageIcon = new ImageIcon("src/Images/jobMarketImage.jpeg");
-        Image jobMarketImage = jobMarketImageIcon.getImage().getScaledInstance(275, 250, Image.SCALE_SMOOTH);
-        jobMarketLabel.setBounds(385, 175, 275, 250);
-        jobMarketImageIcon = new ImageIcon(jobMarketImage);
-        jobMarketLabel.setIcon(jobMarketImageIcon);
-        JLabel jobMarketCaption = new JLabel("Maneuver the Job Market");
-        jobMarketCaption.setBounds(430,385,275,100);
-
-        homepage.add(workwise);
-        homepage.add(searchBar);
-        homepage.add(jobImageLabel); homepage.add(jobMarketLabel);
-        homepage.add(jobImageCaption); homepage.add(jobMarketCaption);
-        homepage.setVisible(true);
-
-        //opens up review page if a company is selected 
-        searchBar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                String searchInput = (String) searchBar.getSelectedItem();
-                if (searchInput != "Search") {
-                    SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                            MockupReviewPage reviewView = new MockupReviewPage(searchInput);
-                            reviewView.setVisible(true);
-                        }
-                    });
-                }
-            }
-        });
 
     }
 }
