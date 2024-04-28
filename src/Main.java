@@ -150,7 +150,6 @@ public class Main {
                         public void run() {
                             MockupReviewPage reviewView = new MockupReviewPage(searchInput);
                             reviewView.setVisible(true);
-                            //new WorkWiseReviewPage(searchInput);
                         }
                     });
                 }
