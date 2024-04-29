@@ -6,3 +6,8 @@
 #p#12345
 #u#walkerh
 #p#123456
+
+#u#hello
+#p#goodbye
+#u#hello!
+#p#password
