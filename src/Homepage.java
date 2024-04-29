@@ -2,8 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-import java.util.Scanner;
 import javax.swing.*;
 
 public class Homepage {
@@ -63,7 +61,7 @@ public class Homepage {
                 if (searchInput != "Search") {
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            MockupReviewPage reviewView = new MockupReviewPage(searchInput);
+                            CompanyReviewPage reviewView = new CompanyReviewPage(searchInput);
                             reviewView.setVisible(true);
                         }
                     });

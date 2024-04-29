@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WorkWiseReviewPage extends JFrame {
+public class CreateReviewPage extends JFrame {
 
     private Map<String, String> userReviews = new HashMap<>();
 
-    public WorkWiseReviewPage(String company) {
+    public CreateReviewPage(String company) {
         setTitle("WorkWise Review Page");
         setSize(900, 675);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

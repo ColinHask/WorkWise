@@ -9,3 +9,5 @@
 
 #u#hello
 #p#goodbye
+#u#hello!
+#p#password

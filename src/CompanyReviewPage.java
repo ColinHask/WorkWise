@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockupReviewPage extends JFrame {
+public class CompanyReviewPage extends JFrame {
     private final List<Review> reviews; // List of reviews
     private final JTextArea reviewDisplay; // Display area for reviews
 
-    public MockupReviewPage(String company) {
+    public CompanyReviewPage(String company) {
         // Initialize the list and add sample reviews with ratings
         reviews = new ArrayList<>();
         reviews.add(new Review("Great company with excellent work culture.", LocalDateTime.now().minusDays(5), 5));
@@ -66,7 +66,7 @@ public class MockupReviewPage extends JFrame {
 
         JButton submitButton = new JButton("Submit A Review");
         submitButton.addActionListener(e -> {
-            new WorkWiseReviewPage(company);
+            new CreateReviewPage(company);
         });
 
         inputPanel.add(submitButton);
